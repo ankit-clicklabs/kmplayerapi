@@ -9,6 +9,8 @@ namespace WinampAPI
 	public class Winamp
 	{
 		public IntPtr Handle;
+		public const int WM_USER = 0x0400;
+		public const int WM_COMMAND = 273;
 
 		/// <summary>
 		/// Initializes and gets the window handle if it is open
@@ -35,12 +37,13 @@ namespace WinampAPI
 			Handle = FindWindow("Winamp v1.x", IntPtr.Zero);
 		}
 
+		#region WM_Command messages
 		/// <summary>
 		/// Toggles Play/Pause
 		/// </summary>
 		public void Play()
 		{
-			SendMessage(Handle, 273, 40046, 0);
+			SendMessage(Handle, WM_COMMAND, 40046, 0);
 		}
 
 		/// <summary>
@@ -48,8 +51,24 @@ namespace WinampAPI
 		/// </summary>
 		public void PlayFromBeginning()
 		{
-			SendMessage(Handle, 273, 40045, 0);
+			SendMessage(Handle, WM_COMMAND, 40045, 0);
 		}
+
+		public void StopAfterCurrent()
+		{
+			SendMessage(Handle, WM_COMMAND, 40157, 0);
+		}
+
+		public void PreviousTrack()
+		{
+			SendMessage(Handle, WM_COMMAND, 40044, 0);
+		}
+
+		public void NextTrack()
+		{
+			SendMessage(Handle, WM_COMMAND, 40048, 0);
+		}
+		#endregion
 
 		/// <summary>
 		/// Returns the length of the current item in seconds
@@ -57,7 +76,7 @@ namespace WinampAPI
 		/// <returns>Returns the length in seconds</returns>
 		public int GetLength()
 		{
-			return SendMessage(Handle, 0x0400, 1, 105);
+			return SendMessage(Handle, WM_USER, 1, 105);
 		}
 
 		/// <summary>
@@ -66,7 +85,16 @@ namespace WinampAPI
 		/// <returns>Returns the length in milliseconds</returns>
 		public int GetPos()
 		{
-			return SendMessage(Handle, 0x0400, 0, 105);
+			return SendMessage(Handle, WM_USER, 0, 105);
+		}
+
+		/// <summary>
+		/// Seeks within the current track. TODO: fix method
+		/// </summary>
+		/// <param name="ms">The offset to seek to (in milliseconds)</param>
+		public void Seek(int ms)
+		{
+			SendMessage(Handle, WM_USER, ms, 106);
 		}
 
 		/// <summary>
