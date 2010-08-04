@@ -10,41 +10,69 @@ namespace WinampAPI
 	{
 		public IntPtr Handle;
 
+		/// <summary>
+		/// Initializes and gets the window handle if it is open
+		/// </summary>
 		public Winamp()
 		{
 			getWindowHandle();
 		}
 
+		/// <summary>
+		/// Initializes with the specified hwnd
+		/// </summary>
+		/// <param name="handle">The handle to use</param>
 		public Winamp(IntPtr handle)
 		{
 			Handle = handle;
 		}
 
+		/// <summary>
+		/// Gets the Window Handle
+		/// </summary>
 		public void getWindowHandle()
 		{
 			Handle = FindWindow("Winamp v1.x", IntPtr.Zero);
 		}
 
+		/// <summary>
+		/// Toggles Play/Pause
+		/// </summary>
 		public void Play()
 		{
 			SendMessage(Handle, 273, 40046, 0);
 		}
 
-		public void Pause()
+		/// <summary>
+		/// Plays the current item from the beginning
+		/// </summary>
+		public void PlayFromBeginning()
 		{
-			SendMessage(Handle, 273, 40046, 0);
+			SendMessage(Handle, 273, 40045, 0);
 		}
 
+		/// <summary>
+		/// Returns the length of the current item in seconds
+		/// </summary>
+		/// <returns>Returns the length in seconds</returns>
 		public int GetLength()
 		{
 			return SendMessage(Handle, 0x0400, 1, 105);
 		}
 
+		/// <summary>
+		/// Gets the position of the current item in milliseconds
+		/// </summary>
+		/// <returns>Returns the length in milliseconds</returns>
 		public int GetPos()
 		{
 			return SendMessage(Handle, 0x0400, 0, 105);
 		}
 
+		/// <summary>
+		/// Gets the title of the window
+		/// </summary>
+		/// <returns></returns>
 		public string GetWindowTitle()
 		{
 			StringBuilder wTitle = new StringBuilder(1024);
