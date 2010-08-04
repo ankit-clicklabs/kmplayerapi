@@ -77,9 +77,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinampAPI\WinampAPI.csproj">
-      <Project>{7E5CCFBA-C3C5-4651-971F-7BE761B3889E}</Project>
-      <Name>WinampAPI</Name>
+    <ProjectReference Include="..\KMPlayerAPI\KMPlayerAPI.csproj">
+      <Project>{74F26204-25EE-4193-8C71-179712350B34}</Project>
+      <Name>KMPlayerAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
