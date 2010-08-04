@@ -91,10 +91,10 @@ namespace KMPlayerAPI
 		/// <summary>
 		/// Seeks within the current track. TODO: fix method
 		/// </summary>
-		/// <param name="ms">The offset to seek to (in milliseconds)</param>
-		public void Seek(int ms)
+		/// <param name="sec">The offset to seek to (in seconds)</param>
+		public int Seek(int sec)
 		{
-			SendMessage(Handle, WM_USER, ms, 106);
+			return SendMessage(Handle, WM_USER, sec * 1000, 106);
 		}
 
 		public bool IsStopped()
@@ -123,6 +123,19 @@ namespace KMPlayerAPI
 			StringBuilder wTitle = new StringBuilder(1024);
 			GetWindowText(Handle, wTitle, wTitle.Capacity);
 			return wTitle.ToString();
+		}
+
+		/// <summary>
+		/// Open a file in km player
+		/// </summary>
+		/// <param name="playerLocation">The Path to KM Player.exe</param>
+		/// <param name="fileName">The path the file you want to open</param>
+		/// <param name="startTime">Optional; the start time to begin playing at (in milliseconds)</param>
+		/// <returns></returns>
+		public string OpenFile(string playerLocation, string fileName, int startTime = 0)
+		{
+			string startCmd = startTime > 0 ? " /start \"" + startTime + "\"" : "";
+			System.Diagnostics.Process.Start(playerLocation, "\"" + fileName + "\"" + startCmd);			
 		}
 
 		#region Extern calls
