@@ -1,0 +1,11 @@
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\bin\Release\WinampTest.exe
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\bin\Release\WinampTest.pdb
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\bin\Release\WinampAPI.dll
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\bin\Release\WinampAPI.pdb
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\WinampTest.Form1.resources
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\WinampTest.Properties.Resources.resources
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\WinampTest.exe
+C:\Users\Nick\Documents\Visual Studio 2010\Projects\WinampAPI\WinampTest\obj\x86\Release\WinampTest.pdb
