@@ -1,5 +1,0 @@
-C:\Users\Nick\documents\visual studio 2010\Projects\WinampAPI\WinampAPI\bin\Debug\WinampAPI.dll
-C:\Users\Nick\documents\visual studio 2010\Projects\WinampAPI\WinampAPI\bin\Debug\WinampAPI.pdb
-C:\Users\Nick\documents\visual studio 2010\Projects\WinampAPI\WinampAPI\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Nick\documents\visual studio 2010\Projects\WinampAPI\WinampAPI\obj\Debug\WinampAPI.dll
-C:\Users\Nick\documents\visual studio 2010\Projects\WinampAPI\WinampAPI\obj\Debug\WinampAPI.pdb
