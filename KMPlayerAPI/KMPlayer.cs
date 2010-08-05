@@ -89,7 +89,7 @@ namespace KMPlayerAPI
 		}
 
 		/// <summary>
-		/// Seeks within the current track. TODO: fix method
+		/// Seeks within the current track. TODO: finicky in km player
 		/// </summary>
 		/// <param name="sec">The offset to seek to (in seconds)</param>
 		public int Seek(int sec)
@@ -126,16 +126,16 @@ namespace KMPlayerAPI
 		}
 
 		/// <summary>
-		/// Open a file in km player
+		/// Open a file in km player (This method may not work in Winamp, but does work in KM Player)
 		/// </summary>
 		/// <param name="playerLocation">The Path to KM Player.exe</param>
 		/// <param name="fileName">The path the file you want to open</param>
 		/// <param name="startTime">Optional; the start time to begin playing at (in milliseconds)</param>
 		/// <returns></returns>
-		public string OpenFile(string playerLocation, string fileName, int startTime = 0)
+		public void OpenFile(string playerLocation, string fileName, int startTime = 0)
 		{
 			string startCmd = startTime > 0 ? " /start \"" + startTime + "\"" : "";
-			System.Diagnostics.Process.Start(playerLocation, "\"" + fileName + "\"" + startCmd);			
+			System.Diagnostics.Process.Start(playerLocation, "\"" + fileName + "\"" + startCmd);
 		}
 
 		#region Extern calls
