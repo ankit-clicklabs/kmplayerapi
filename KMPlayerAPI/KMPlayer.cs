@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace KMPlayerAPI
 {
@@ -9,6 +10,7 @@ namespace KMPlayerAPI
 		public IntPtr Handle;
 		public const int WM_USER = 0x0400;
 		public const int WM_COMMAND = 273;
+		public const int WM_DESTROY = 0x0002;
 
 		/// <summary>
 		/// Initializes and gets the window handle if it is open
@@ -32,7 +34,17 @@ namespace KMPlayerAPI
 		/// </summary>
 		public void getWindowHandle()
 		{
-			Handle = FindWindow("Winamp v1.x", IntPtr.Zero);
+			Handle = FindWindow("Winamp v1.x", IntPtr.Zero); 
+			//EnumWindows(new EnumWindowsProc(Report), IntPtr.Zero);
+		}
+		
+		public void DestroyInstance()
+		{
+			if (Handle != IntPtr.Zero)
+			{
+				//SendMessage(Handle, WM_DESTROY, 0, 0);
+				TerminateProcess(Handle, 1);
+			}
 		}
 
 		#region WM_Command messages
@@ -135,7 +147,13 @@ namespace KMPlayerAPI
 		public void OpenFile(string playerLocation, string fileName, int startTime = 0)
 		{
 			string startCmd = startTime > 0 ? " /start \"" + startTime + "\"" : "";
+			//DestroyInstance();
+			getWindowHandle();
+			if (Handle != IntPtr.Zero) startCmd = "";
 			System.Diagnostics.Process.Start(playerLocation, "\"" + fileName + "\"" + startCmd);
+			if (Handle == IntPtr.Zero) return;
+			System.Threading.Thread.Sleep(800);
+			Seek(startTime / 1000);
 		}
 
 		#region Extern calls
@@ -145,35 +163,37 @@ namespace KMPlayerAPI
 		[DllImport("User32.dll", EntryPoint = "SendMessage")]
 		private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-		//[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		//public static extern int SendMessageA(IntPtr hwnd, int wMsg, int wParam, uint lParam);
-
 		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		private static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 		private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
+		[DllImport("kernel32.dll", SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		static extern bool TerminateProcess(IntPtr hProcess, uint uExitCode);
+
 		//EnumWindows(new EnumWindowsProc(Report), IntPtr.Zero);
-		//public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-		//private EnumWindowsProc callBackPtr;
+		public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+		private EnumWindowsProc callBackPtr;
 
-		//[DllImport("user32.dll")]
-		//[return: MarshalAs(UnmanagedType.Bool)]
-		//static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+		[DllImport("user32.dll")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
-		//public static bool Report(IntPtr hwnd, IntPtr lParam)
-		//{
-		//  //MessageBox.Show(hwnd + "");
-		//  StringBuilder sb = new StringBuilder(1024);
-		//  GetClassName(hwnd, sb, sb.Capacity);
-		//  StringBuilder sb2 = new StringBuilder(1024);
-		//  GetWindowText(hwnd, sb2, sb2.Capacity);
-		//  if (sb.ToString().Contains("Winamp"))
-		//  {
-		//  }
-		//  return true;
-		//}
+		public static bool Report(IntPtr hwnd, IntPtr lParam)
+		{
+			//MessageBox.Show(hwnd + "");
+			StringBuilder sb = new StringBuilder(1024);
+			GetClassName(hwnd, sb, sb.Capacity);
+			StringBuilder sb2 = new StringBuilder(1024);
+			GetWindowText(hwnd, sb2, sb2.Capacity);
+			if (sb.ToString().Contains("MediaViewer"))
+			{
+				MessageBox.Show(sb.ToString());
+			}
+			return true;
+		}
 		#endregion
 
 	}

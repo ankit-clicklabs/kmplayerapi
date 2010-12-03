@@ -20,12 +20,11 @@ namespace WinampTest
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			win.Seek(180000);
+
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			this.Text = ((float)win.GetPos() / 1000f) + "s";
 		}
 	}
 }
