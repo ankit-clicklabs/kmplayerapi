@@ -124,6 +124,14 @@ namespace KMPlayerAPI
 		{
 			return SendMessage(Handle, WM_USER, 0, 104) == 3;
 		}
+		
+		/// <summary>
+		/// Sets the volume. The parameter must be between 0 and 255.
+		/// </summary>
+		public bool SetVolume(int volume)
+		{
+			return SendMessage(Handle, WM_USER, volume, 122) == 0;
+		}
 		#endregion
 
 		/// <summary>
